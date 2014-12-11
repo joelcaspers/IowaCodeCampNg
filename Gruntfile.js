@@ -1,22 +1,55 @@
 module.exports = function(grunt) {
 
-  var allTasks = ['clean', 'copy', 'uglify'];
+  var allTasks = [
+    'clean',
+    'concat',
+    'uglify',
+    'copy:index',
+    'copy:partials',
+    'copy:build'
+  ];
 
   grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
     clean: {
       build: {
-        src: ["/build"]
+        src: ['build', 'public']
       }
     },
+    concat: {
+      public: {
+        src: [
+          'src/module.js',
+          'src/controllers/**.js',
+          'src/directives/**.js',
+          'src/filters/**.js',
+          'src/providers/**.js'
+        ],
+        dest: 'build/IowaCodeCampNg.js',
+      },
+    },
     copy: {
-      src: {
+      index: {
+        src: 'src/index.html',
+        dest: 'build/index.html'
+      },
+      partials: {
         files: [
           {
             expand: true,
-            cwd: 'src',
+            cwd: 'src/partials/',
             src: ['**'],
-            dest: 'build'
+            dest: 'build/'
+          }
+        ]
+      },
+      build: {
+        files: [
+          {
+            expand: true,
+            cwd: 'build',
+            src: ['**'],
+            dest: 'public'
           }
         ]
       }
@@ -26,7 +59,7 @@ module.exports = function(grunt) {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
 			},
 			build: {
-				src: 'src/<%= pkg.name %>.js',
+				src: 'build/<%= pkg.name %>.js',
 				dest: 'build/<%= pkg.name %>.min.js'
 			}
 		},
@@ -35,21 +68,20 @@ module.exports = function(grunt) {
         options: {
           hostname: 'localhost',
           port: 8082,
-          base: 'build'
+          base: 'public'
         }
       }
     },
     watch: {
-      gruntfile: {
-        files: 'Gruntfile.js',
-        tasks: allTasks
+      options: {
+        livereload: true
       },
-      html: {
-        files: '**/*.html',
-        tasks: allTasks,
-        options: {
-          livereload: true
-        }
+      gruntfile: {
+        files: 'Gruntfile.js'
+      },
+      src: {
+        files: 'src/**',
+        tasks: allTasks
       }
     }
 	});
@@ -58,6 +90,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
