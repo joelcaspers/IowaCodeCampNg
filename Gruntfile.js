@@ -2,6 +2,7 @@ module.exports = function(grunt) {
 
   var allTasks = [
     'clean',
+    'ngtemplates',
     'concat',
     'uglify',
     'copy:index',
@@ -16,10 +17,18 @@ module.exports = function(grunt) {
         src: ['build', 'public']
       }
     },
+    ngtemplates: {
+      iowaCodeCampNg: {
+        cwd: 'src',
+        src: ['partials/**.html'],
+        dest: 'build/partials.js'
+      }
+    },
     concat: {
       public: {
         src: [
           'src/module.js',
+          '<%= ngtemplates.iowaCodeCampNg.dest %>',
           'src/controllers/**.js',
           'src/directives/**.js',
           'src/filters/**.js',
@@ -90,6 +99,7 @@ module.exports = function(grunt) {
 	grunt.loadNpmTasks('grunt-contrib-uglify');
   grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-copy');
+  grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-concat');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');

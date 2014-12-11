@@ -1,4 +1,4 @@
-var appModule = angular.module('IowaCodeCampNg', []);
+var appModule = angular.module('iowaCodeCampNg', []);
 appModule.config(function (injectables) {
 
 });
