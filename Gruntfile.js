@@ -18,17 +18,21 @@ module.exports = function(grunt) {
       }
     },
     ngtemplates: {
-      iowaCodeCampNg: {
+      IowaCodeCampNg: {
         cwd: 'src',
         src: ['partials/**.html'],
         dest: 'build/partials.js'
       }
     },
     concat: {
-      public: {
+      options: {
+        banner: '(function () {\n',
+        footer: '})();'
+      },
+      src: {
         src: [
           'src/module.js',
-          '<%= ngtemplates.iowaCodeCampNg.dest %>',
+          '<%= ngtemplates.IowaCodeCampNg.dest %>',
           'src/controllers/**.js',
           'src/directives/**.js',
           'src/filters/**.js',
@@ -66,7 +70,7 @@ module.exports = function(grunt) {
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
-			},
+      },
 			build: {
 				src: 'build/<%= pkg.name %>.js',
 				dest: 'build/<%= pkg.name %>.min.js'
@@ -105,6 +109,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-watch');
 
 	// Default task(s).
-	grunt.registerTask('default', allTasks.concat(['connect', 'watch']));
+	grunt.registerTask('default', allTasks);
+  grunt.registerTask('dev', allTasks.concat(['connect', 'watch']));
 
 };

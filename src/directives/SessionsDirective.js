@@ -1,4 +1,4 @@
-appModule.directive('sessions', function ($scope) {
+appModule.directive('sessions', function () {
     return {
       restrict: 'E',
       templateUrl: 'sessions.html',

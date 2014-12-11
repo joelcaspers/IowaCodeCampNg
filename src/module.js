@@ -1,7 +1,7 @@
-var appModule = angular.module('iowaCodeCampNg', []);
-appModule.config(function (injectables) {
+var appModule = angular.module('IowaCodeCampNg', ['ngResource']);
+appModule.config(function () {
 
 });
-appModule.config(function (injectables) {
+appModule.config(function () {
 
 });
