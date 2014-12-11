@@ -1,1 +1,35 @@
-<div>{{sessionsTitle}}</div>
+<style type="text/css">
+  div ol {
+    padding-left: 25px;
+  }
+  #sessions ul {
+    list-style-type: none;
+    font-family:Arial,Helvetica;
+  }
+  #sessions dt {
+    font-weight: bold;
+    float: left;
+    padding-right: 5px;
+    font-family:Arial,Helvetica;
+  }
+  #sessions h3 {
+    display: block;
+    clear: left;
+    padding-top: 20px;
+    font-family:Arial,Helvetica;
+  }
+</style>
+
+<div id="sessions">
+  <ul>
+    <li ng-repeat="session in sessions">
+      <h3 id="{{session.Id}}">{{session.Name}}</h3>
+      <p>{{session.SessionDescription}}</p>
+      <p>
+        {{session.EventSlotName}} : {{session.LocationName}} : {{session.Name}} (Level: {{session.Level}})
+        <br />
+        Speaker: <a href="/speaker/list#{{session.SpeakerId}}">{{session.SpeakerName}}</a>
+      </p>
+    </li>
+  </ul>
+</div>

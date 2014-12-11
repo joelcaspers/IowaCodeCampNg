@@ -5,6 +5,7 @@ module.exports = function(grunt) {
     'ngtemplates',
     'concat',
     'uglify',
+    'copy:assets',
     'copy:index',
     'copy:partials',
     'copy:build',
@@ -43,6 +44,16 @@ module.exports = function(grunt) {
       },
     },
     copy: {
+      assets: {
+        files: [
+        {
+          expand: true,
+          cwd: 'assets/',
+          src: ['**'],
+          dest: 'build/assets'
+        }
+        ]
+      },
       index: {
         src: 'src/index.html',
         dest: 'build/index.html'
@@ -98,6 +109,10 @@ module.exports = function(grunt) {
       },
       gruntfile: {
         files: 'Gruntfile.js'
+      },
+      assets: {
+        files: 'assets/**',
+        tasks: allTasks
       },
       src: {
         files: 'src/**',
