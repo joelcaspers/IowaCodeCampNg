@@ -7,7 +7,8 @@ module.exports = function(grunt) {
     'uglify',
     'copy:index',
     'copy:partials',
-    'copy:build'
+    'copy:build',
+    'jshint'
   ];
 
   grunt.initConfig({
@@ -67,6 +68,12 @@ module.exports = function(grunt) {
         ]
       }
     },
+    jshint: {
+      options: {
+        reporter: require('jshint-stylish')
+      },
+      all: ['Gruntfile.js', 'public/IowaCodeCampNg.js']
+    },
 		uglify: {
 			options: {
 				banner: '/*! <%= pkg.name %> <%= grunt.template.today("yyyy-mm-dd") %> */\n'
@@ -105,6 +112,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-contrib-copy');
   grunt.loadNpmTasks('grunt-angular-templates');
   grunt.loadNpmTasks('grunt-contrib-concat');
+  grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-connect');
   grunt.loadNpmTasks('grunt-contrib-watch');
 
