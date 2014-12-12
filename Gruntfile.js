@@ -99,7 +99,36 @@ module.exports = function(grunt) {
         options: {
           hostname: 'localhost',
           port: 8082,
-          base: 'public'
+          base: 'public',
+          middleware: function(connect, options) {//https://github.com/gruntjs/grunt-contrib-connect/issues/30 -> https://gist.github.com/ssafejava/8704372
+            var middlewares = [];
+            if (!Array.isArray(options.base)) {
+              options.base = [options.base];
+            }
+            var directory = options.directory || options.base[options.base.length - 1];
+            options.base.forEach(function(base) {
+              // Serve static files.
+              middlewares.push(connect.static(base));
+            });
+            // Make directory browse-able.
+            middlewares.push(connect.directory(directory));
+
+            // ***
+            // Not found - just serve index.html
+            // ***
+            middlewares.push(function(req, res){
+              for(var file, i = 0; i < options.base.length; i++){
+                file = options.base + "/index.html";
+                if (grunt.file.exists(file)){
+                  require('fs').createReadStream(file).pipe(res);
+                  return; // we're done
+                }
+              }
+              res.statusCode(404); // where's index.html?
+              res.end();
+            });
+            return middlewares;
+          }
         }
       }
     },
