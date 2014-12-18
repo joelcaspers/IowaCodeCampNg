@@ -1,8 +1,9 @@
 appModule.factory('sessionResource', [
   '$resource',
-  function ($resource) {
+  'API_ENDPOINT_URI_ROOT',
+  function ($resource, API_ENDPOINT_URI_ROOT) {
     return $resource(
-      'http://localhost:8081/api/sessions/:sessionId',
+      API_ENDPOINT_URI_ROOT + 'api/sessions/:sessionId',
       {sessionId: '@Id'},
       {
         update: { method: 'PUT' },
