@@ -12,6 +12,8 @@ module.exports = function(grunt) {
     'jshint'
   ];
 
+  var serveStatic = require('serve-static');
+
   grunt.initConfig({
 		pkg: grunt.file.readJSON('package.json'),
     clean: {
@@ -83,6 +85,7 @@ module.exports = function(grunt) {
       options: {
         reporter: require('jshint-stylish')
       },
+      path: '[**]',
       all: ['Gruntfile.js', 'public/IowaCodeCampNg.js']
     },
 		uglify: {
@@ -100,25 +103,26 @@ module.exports = function(grunt) {
           hostname: 'localhost',
           port: 8082,
           base: 'public',
-          middleware: function(connect, options) {//https://github.com/gruntjs/grunt-contrib-connect/issues/30 -> https://gist.github.com/ssafejava/8704372
+          middleware: function(connect, options) {
             var middlewares = [];
             if (!Array.isArray(options.base)) {
               options.base = [options.base];
             }
             var directory = options.directory || options.base[options.base.length - 1];
             options.base.forEach(function(base) {
-              // Serve static files.
-              middlewares.push(connect.static(base));
+              // Serve static files. (use serve-static instead)
+              middlewares.push(serveStatic(base));
             });
-            // Make directory browse-able.
-            middlewares.push(connect.directory(directory));
+            // Make directory browse-able. (not available on latest connect)
+            // middlewares.push(connect.directory(directory));
 
             // ***
             // Not found - just serve index.html
             // ***
             middlewares.push(function(req, res){
               for(var file, i = 0; i < options.base.length; i++){
-                file = options.base + "/index.html";
+                // fixed missing index
+                file = options.base[i] + "/index.html";
                 if (grunt.file.exists(file)){
                   require('fs').createReadStream(file).pipe(res);
                   return; // we're done

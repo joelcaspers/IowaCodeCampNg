@@ -2,6 +2,8 @@
 
 **IowaCodeCamp.com Angular** is the Iowa Code Camp website client side (Single Page Application) written using images, css, html, and javascript.
 
+[The Code Camp Problem](https://github.com/joelcaspers/IowaCodeCampNg/blob/master/TheCodeCampProblem.pdf)
+
 ### Javascript Dependencies ###
 
 - Angular.js
