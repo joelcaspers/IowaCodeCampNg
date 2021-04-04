@@ -18,17 +18,35 @@
     padding-top: 20px;
     font-family:Arial,Helvetica;
   }
+  .tweet-date {
+    padding-right: 5px;
+    font-family:Arial,Helvetica;
+    text-align: justify;
+    font-size: 12px;
+    min-width: 175px;
+    vertical-align: top;
+  }
 </style>
 
 <div id="sessions">
   <ul>
     <li ng-repeat="session in sessions">
-      <h3 id="{{session.Id}}">{{session.Name}}</h3>
-      <p>{{session.SessionDescription}}</p>
+      <h3 id="{{session.id}}">{{session.session_description}}</h3>
       <p>
-        {{session.EventSlotName}} : {{session.LocationName}} : {{session.Name}} (Level: {{session.Level}})
+        {{session.event_slot_name}} : (Level: {{session.level}})
         <br />
-        Speaker: <a href="/speaker/list#{{session.SpeakerId}}">{{session.SpeakerName}}</a>
+        Speaker: <a href="/speaker/list#{{session.speaker_id}}">{{session.speaker.name}}</a><br /><br />
+        <span ng-if="session.speaker.tweets.length > 0">@{{session.speaker.twitter_handle}}:</span>
+        <table>
+          <tr ng-repeat="tweet in session.speaker.tweets">
+            <td class="tweet-date">
+              {{tweet.created_at}}
+            </td>
+            <td>
+              {{tweet.text}}
+            </td>
+          </tr>
+        </table>
       </p>
     </li>
   </ul>

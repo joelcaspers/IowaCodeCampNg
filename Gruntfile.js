@@ -101,7 +101,7 @@ module.exports = function(grunt) {
       server: {
         options: {
           hostname: 'localhost',
-          port: 8082,
+          port: 7999,
           base: 'public',
           middleware: function(connect, options) {
             var middlewares = [];

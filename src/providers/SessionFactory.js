@@ -3,7 +3,7 @@ appModule.factory('sessionResource', [
   'API_ENDPOINT_URI_ROOT',
   function ($resource, API_ENDPOINT_URI_ROOT) {
     return $resource(
-      API_ENDPOINT_URI_ROOT + 'api/sessions/:sessionId',
+      API_ENDPOINT_URI_ROOT + 'papi/iowacodecamp/v1/sessions/:sessionId',
       {sessionId: '@Id'},
       {
         update: { method: 'PUT' },

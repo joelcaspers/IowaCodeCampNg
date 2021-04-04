@@ -1,6 +1,6 @@
 var appModule = angular.module('IowaCodeCampNg', ['ngResource', 'ui.router']);
 
-appModule.constant('API_ENDPOINT_URI_ROOT', 'http://localhost:8081/');
+appModule.constant('API_ENDPOINT_URI_ROOT', 'http://localhost:8083/');
 
 appModule.config(['$locationProvider', '$stateProvider', '$urlRouterProvider', function($locationProvider, $stateProvider, $urlRouterProvider) {
 
